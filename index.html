@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sada | A Luxury Birthday Exhibition</title>
+  <meta name="description"
+    content="A minimalist, luxury 3D interactive exhibition wishing a Happy Birthday to Sada. Exploring graceful memories and floating installations.">
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+
+  <!-- Background Noise & Vignette Overlays -->
+  <div class="noise-overlay" id="noise"></div>
+  <div class="vignette-overlay" id="vignette"></div>
+
+  <!-- Drifting Cursor Sparkles Overlay Canvas -->
+  <canvas class="sparkle-canvas-overlay" id="sparkle-trail-canvas"></canvas>
+
+  <!-- Full Screen Premium Loader -->
+  <div class="luxury-loader" id="luxury-loader">
+    <div class="loader-crest">
+      <div class="loader-crest-ring"></div>
+      <div class="loader-crest-inner">S</div>
+    </div>
+    <h1 class="loader-title">Sada</h1>
+    <p class="loader-subtitle">The Exhibition</p>
+    <div class="loader-progress-bar">
+      <div class="loader-progress-fill" id="loader-progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Three.js Canvas Container -->
+  <div id="canvas-container"></div>
+
+  <!-- HTML UI Overlays Layer (Independent Scroll) -->
+  <div class="ui-overlay" id="ui-overlay">
+
+    <!-- Hero / Entry Section -->
+    <section class="hero-section" id="hero-section">
+      <!-- High-End Monogram & Badge -->
+      <div class="hero-monogram" id="hero-monogram">S</div>
+      <div class="luxury-badge">VITE EXCLUSIF &bull; VOL. XXIII</div>
+
+      <div class="hero-crest">Exhibition 05.30</div>
+      <div class="hero-title-container">
+        <h1 class="hero-title">Sada</h1>
+      </div>
+      <p class="hero-subtitle">Celebrating 23 years of elegance, beauty, and bright spirits.</p>
+
+      <!-- Dual Entry Experience Paths -->
+      <div class="hero-actions">
+        <button class="btn-gold-luxury" id="explore-btn" style="opacity: 1; transform: none; animation: none;">Immersive
+          3D Tour</button>
+        <button class="btn-outline-luxury" id="grid-view-btn">Curated Grid View</button>
+      </div>
+
+      <div class="scroll-indicator">
+        <span class="scroll-text">Scroll to Traverse</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Narrative Scroll Sections (Triggers WebGL Camera moves) -->
+    <div class="scroll-track-sections" id="scroll-track-sections" style="display: none;">
+
+      <!-- Slide 1 -->
+      <section class="narrative-slide" id="slide-0">
+        <div class="narrative-card">
+          <div class="narrative-number">01</div>
+          <h2 class="narrative-title">My Bestie</h2>
+          <p class="narrative-body">Nuvu ante naku praname ah vishayam niku kuda thelusu emo life entha mandhi natho
+            unna kani nuvu na pakkana unnapudu vachey feeling eh veru and i want a promise from you nannu apudu life
+            vadhileyaku.</p>
+          <button class="narrative-btn" data-pedestal="0">Inspect Frame</button>
+        </div>
+      </section>
+
+      <!-- Slide 2 -->
+      <section class="narrative-slide align-right" id="slide-1">
+        <div class="narrative-card">
+          <div class="narrative-number">02</div>
+          <h2 class="narrative-title">Thingaribuchi</h2>
+          <p class="narrative-body">I love the way you are enjoying when you are with me , ah childishness entho istame
+            naku kani nuvu adhi andhari dhaggara chupinchadame nachadhu naku .</p>
+          <button class="narrative-btn" data-pedestal="1">Inspect Frame</button>
+        </div>
+      </section>
+
+      <!-- Slide 3 -->
+      <section class="narrative-slide" id="slide-2">
+        <div class="narrative-card">
+          <div class="narrative-number">03</div>
+          <h2 class="narrative-title">Caring partner</h2>
+          <p class="narrative-body">Nuvuu nannu entha baga care chesthav ante life lo nuvu nannu ardham chesukuntanu
+            inka evaru ardham chesukoleru anni bagane chesthav naku istaminavi thelusukuntav kani na mindset eh correct
+            kadhu nuvu chesedhi correct eh kani na mindset theda em chesina nannu impress cheydaniki try chesthav .</p>
+          <button class="narrative-btn" data-pedestal="2">Inspect Frame</button>
+        </div>
+      </section>
+
+      <!-- Slide 4 -->
+      <section class="narrative-slide align-right" id="slide-3">
+        <div class="narrative-card">
+          <div class="narrative-number">04</div>
+          <h2 class="narrative-title">Life partner</h2>
+          <p class="narrative-body">My life partner , andhariki life partner ante wife ledha lover kani naku life
+            partner ante nuve that menas i don't wanna marry you ni frienship ni caring inka ni love anni na medha okka
+            life partner ki anna ekkuva may be i am your second priority na life lo nuvu mathram apudu first priority eh
+            I LOVE YOU .</p>
+          <button class="narrative-btn" data-pedestal="3">Inspect Frame</button>
+        </div>
+      </section>
+
+      <!-- Slide 5 -->
+      <section class="narrative-slide" id="slide-4">
+        <div class="narrative-card">
+          <div class="narrative-number">05</div>
+          <h2 class="narrative-title">Supporter</h2>
+          <p class="narrative-body">Life lo eh situation lo unna kani nuvu nannu motivate chesi cheyagalav ane namme
+            first person nuve life lo prathithi vishayam lo vellupetti vachesa kani inka better ga sadisthav ane
+            nammakham tho nathone unnav thanks for supporting and motivating me .</p>
+          <button class="narrative-btn" data-pedestal="4">Inspect Frame</button>
+        </div>
+      </section>
+
+      <!-- Slide 6 -->
+      <section class="narrative-slide align-right" id="slide-5">
+        <div class="narrative-card">
+          <div class="narrative-number">06</div>
+          <h2 class="narrative-title">Secret Letter</h2>
+          <p class="narrative-body">The emotional bonding which we are having is very special to me and Iam very much
+            thankful to you wish you a happy birthday once again </p>
+          <button class="narrative-btn" data-pedestal="5">Inspect Frame</button>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <!-- Floating Music Player Widget -->
+  <div class="music-player-widget" id="music-widget">
+    <div class="music-disc" id="music-play-btn"></div>
+    <div class="music-info">
+      <span class="music-title">Beautiful Dream</span>
+      <span class="music-artist">Acoustic Piano Ambient</span>
+    </div>
+    <div class="audio-waves">
+      <div class="audio-bar"></div>
+      <div class="audio-bar"></div>
+      <div class="audio-bar"></div>
+      <div class="audio-bar"></div>
+    </div>
+  </div>
+
+  <!-- Background Music Audio Element -->
+  <audio id="bg-audio" loop preload="auto">
+    <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating Bottom Control Dashboard Panel (Traversing & Autoplay) -->
+  <div class="bottom-dashboard" id="bottom-dashboard">
+    <div class="plate-indicator-container">
+      <span class="plate-indicator-num" id="dashboard-plate-num">Plate 01</span>
+      <span class="plate-indicator-title" id="dashboard-plate-title">Ethereal Grace</span>
+    </div>
+    <div class="roman-nav" id="dashboard-roman-nav">
+      <span class="roman-node active" data-index="0">I</span>
+      <span class="roman-node" data-index="1">II</span>
+      <span class="roman-node" data-index="2">III</span>
+      <span class="roman-node" data-index="3">IV</span>
+      <span class="roman-node" data-index="4">V</span>
+      <span class="roman-node" data-index="5">VI</span>
+    </div>
+    <button class="slideshow-toggle-btn" id="slideshow-btn" aria-label="Toggle Slideshow Play">
+      <svg viewBox="0 0 24 24" id="play-pause-svg">
+        <!-- Play SVG Path -->
+        <path d="M8 5v14l11-7z" id="play-pause-path" />
+      </svg>
+    </button>
+  </div>
+
+
+
+  <!-- Photo Detail Lightbox -->
+  <div class="photo-lightbox" id="photo-lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close Lightbox">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <div class="lightbox-content">
+      <div class="lightbox-image-side">
+        <div class="lightbox-image-container">
+          <img src="" alt="Sada Portrait" class="lightbox-image" id="lightbox-img">
+        </div>
+      </div>
+      <div class="lightbox-detail-side">
+        <span class="lightbox-date" id="lightbox-date">Exhibition Plate 01</span>
+        <h3 class="lightbox-title" id="lightbox-title">Ethereal Grace</h3>
+        <p class="lightbox-description" id="lightbox-desc">This portrait captures the subtle elegance and sophisticated
+          gaze that defines Sada's brilliant character. Set in custom floating wireframe gold detailing.</p>
+        <p class="lightbox-author-quote" id="lightbox-quote">"Always shine bright like a gold stardust in the deepest
+          night."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Curated Editorial Grid View Overlay -->
+  <div class="curated-grid-overlay" id="curated-grid-overlay">
+    <div class="grid-header">
+      <button class="grid-close-btn" id="grid-close-btn">Exit Grid View</button>
+      <h1 class="grid-header-logo">SADA</h1>
+      <p class="grid-header-subtitle">Curated Editorial Portraiture</p>
+    </div>
+    <div class="grid-container">
+      <!-- Card 1 -->
+      <div class="grid-item" data-index="0">
+        <div class="grid-img-wrapper">
+          <img src="./assets/IMG20250625075500.jpg" alt="Ethereal Grace" class="grid-img">
+        </div>
+        <div class="grid-info">
+          <span class="grid-num">PLATE I</span>
+          <h3 class="grid-title">My Bestie</h3>
+          <p class="grid-desc">Nuvu ante naku praname ah vishayam niku kuda thelusu emo life entha mandhi natho
+            unna kani nuvu na pakkana unnapudu vachey feeling eh veru and i want a promise from you nannu apudu life
+            vadhileyaku.</p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="grid-item" data-index="1">
+        <div class="grid-img-wrapper">
+          <img src="./assets/IMG20250627084429.jpg" alt="Golden Radiance" class="grid-img">
+        </div>
+        <div class="grid-info">
+          <span class="grid-num">PLATE II</span>
+          <h3 class="grid-title">Thingaribuchi</h3>
+          <p class="grid-desc">I love the way you are enjoying when you are with me , ah childishness entho istame
+            naku kani nuvu adhi andhari dhaggara chupinchadame nachadhu naku .</p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="grid-item" data-index="2">
+        <div class="grid-img-wrapper">
+          <img src="./assets/IMG20250627084631.jpg" alt="Sophistication" class="grid-img">
+        </div>
+        <div class="grid-info">
+          <span class="grid-num">PLATE III</span>
+          <h3 class="grid-title">Caring partner</h3>
+          <p class="grid-desc">Nuvuu nannu entha baga care chesthav ante life lo nuvu nannu ardham chesukuntanu
+            inka evaru ardham chesukoleru anni bagane chesthav naku istaminavi thelusukuntav kani na mindset eh correct
+            kadhu nuvu chesedhi correct eh kani na mindset theda em chesina nannu impress cheydaniki try chesthav .</p>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="grid-item" data-index="3">
+        <div class="grid-img-wrapper">
+          <img src="./assets/IMG20250627091154.jpg" alt="Serenity" class="grid-img">
+        </div>
+        <div class="grid-info">
+          <span class="grid-num">PLATE IV</span>
+          <h3 class="grid-title">Life partner</h3>
+          <p class="grid-desc">My life partner , andhariki life partner ante wife ledha lover kani naku life
+            partner ante nuve that menas i don't wanna marry you ni frienship ni caring inka ni love anni na medha okka
+            life partner ki anna ekkuva may be i am your second priority na life lo nuvu mathram apudu first priority eh
+            I LOVE YOU .</p>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="grid-item" data-index="4">
+        <div class="grid-img-wrapper">
+          <img src="./assets/IMG_20250627_151034.jpg" alt="Infinite Light" class="grid-img">
+        </div>
+        <div class="grid-info">
+          <span class="grid-num">PLATE V</span>
+          <h3 class="grid-title">Supporter</h3>
+          <p class="grid-desc">Life lo eh situation lo unna kani nuvu nannu motivate chesi cheyagalav ane namme
+            first person nuve life lo prathithi vishayam lo vellupetti vachesa kani inka better ga sadisthav ane
+            nammakham tho nathone unnav thanks for supporting and motivating me .</p>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="grid-item" data-index="5">
+        <div class="grid-img-wrapper">
+          <img src="./assets/love letter.jpg" alt="A Sealed Promise" class="grid-img">
+        </div>
+        <div class="grid-info">
+          <span class="grid-num">PLATE VI</span>
+          <h3 class="grid-title">Secret Letter</h3>
+          <p class="grid-desc">The emotional bonding which we are having is very special to me and Iam very much
+            thankful to you wish you a happy birthday once again </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- JavaScript Entry Point -->
+  <script type="module" src="./index.js"></script>
+</body>
+
+</html>
