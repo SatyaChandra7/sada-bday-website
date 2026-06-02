@@ -644,6 +644,17 @@ function setupInteractions() {
     isTransitioning = true;
     stopSlideshow();
     
+    // Play Tollywood classic looping background audio on direct user interaction
+    const audio = document.getElementById('bg-audio');
+    const widget = document.getElementById('music-widget');
+    const playBtn = document.getElementById('music-play-btn');
+    if (audio && audio.paused) {
+      audio.play().then(() => {
+        if (widget) widget.classList.add('playing');
+        if (playBtn) playBtn.classList.add('playing');
+      }).catch(err => console.warn("Autoplay blocked or failed", err));
+    }
+    
     gsap.to(heroSection, {
       opacity: 0,
       y: -30,
@@ -675,6 +686,17 @@ function setupInteractions() {
   gridViewBtn.addEventListener('click', () => {
     stopSlideshow();
     curatedGridOverlay.classList.add('visible');
+    
+    // Play Tollywood classic looping background audio on direct user interaction
+    const audio = document.getElementById('bg-audio');
+    const widget = document.getElementById('music-widget');
+    const playBtn = document.getElementById('music-play-btn');
+    if (audio && audio.paused) {
+      audio.play().then(() => {
+        if (widget) widget.classList.add('playing');
+        if (playBtn) playBtn.classList.add('playing');
+      }).catch(err => console.warn("Autoplay blocked or failed", err));
+    }
   });
   
   // "Exit Grid View"
