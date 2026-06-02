@@ -64,7 +64,7 @@ const GALLERY_DATA = [
     index: 5,
     title: "Secret Letter",
     date: "Plate 06",
-    image: "./assets/love letter.jpg",
+    image: "./assets/love%20letter.jpg",
     desc: "The emotional bonding which we are having is very special to me and Iam very much thankful to you wish you a happy birthday once again ",
     quote: "The emotional bonding which we have is very special.",
     pos: { x: -14, y: -2, z: 0 },
@@ -735,10 +735,24 @@ function setupInteractions() {
 // ==========================================
 let lastScrollTime = 0;
 function handleScrollEvent(e) {
-  if (!isExhibitionEntered || isTransitioning || document.getElementById('photo-lightbox').classList.contains('open') || document.getElementById('wish-drawer').classList.contains('open') || document.getElementById('curated-grid-overlay').classList.contains('visible')) return;
+  const isLightboxOpen = document.getElementById('photo-lightbox')?.classList.contains('open');
+  const isDrawerOpen = document.getElementById('wish-drawer')?.classList.contains('open');
+  const isGridOpen = document.getElementById('curated-grid-overlay')?.classList.contains('visible');
+  
+  if (isLightboxOpen || isDrawerOpen || isGridOpen) return;
   
   e.preventDefault();
   const now = Date.now();
+  
+  // Scroll Down on landing page triggers tour entry!
+  if (!isExhibitionEntered) {
+    if (e.deltaY > 20 && !isTransitioning) {
+      const exploreBtn = document.getElementById('explore-btn');
+      if (exploreBtn) exploreBtn.click();
+    }
+    return;
+  }
+  
   if (now - lastScrollTime < 1000) return; // Debounce slide moves
   
   if (e.deltaY > 20) {
@@ -764,16 +778,31 @@ window.addEventListener('touchstart', (e) => {
 }, { passive: true });
 
 function handleTouchScrollEvent(e) {
-  if (!isExhibitionEntered || isTransitioning || document.getElementById('photo-lightbox').classList.contains('open') || document.getElementById('wish-drawer').classList.contains('open') || document.getElementById('curated-grid-overlay').classList.contains('visible')) return;
+  const isLightboxOpen = document.getElementById('photo-lightbox')?.classList.contains('open');
+  const isDrawerOpen = document.getElementById('wish-drawer')?.classList.contains('open');
+  const isGridOpen = document.getElementById('curated-grid-overlay')?.classList.contains('visible');
+  
+  if (isLightboxOpen || isDrawerOpen || isGridOpen) return;
   
   const touchY = e.touches[0].clientY;
   const diffY = startTouchY - touchY;
   
   const now = Date.now();
-  if (now - lastScrollTime < 1200) return;
   
   if (Math.abs(diffY) > 50) {
     e.preventDefault();
+    
+    // Swipe Up on landing page triggers tour entry!
+    if (!isExhibitionEntered) {
+      if (diffY > 0 && !isTransitioning) {
+        const exploreBtn = document.getElementById('explore-btn');
+        if (exploreBtn) exploreBtn.click();
+      }
+      return;
+    }
+    
+    if (now - lastScrollTime < 1200) return;
+    
     if (diffY > 0) {
       // Swipe Up (Scroll Down)
       if (activeIndex < GALLERY_DATA.length - 1) {
